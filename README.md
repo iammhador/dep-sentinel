@@ -35,6 +35,8 @@ Nobody noticed any of it until someone ran the right tool by hand. dep-sentinel 
 
 Tools that aren't installed are reported as **skipped**, never as "safe".
 
+Test-fixture folders (`evals/`, `fixtures/`, `__fixtures__/`, `testdata/`, `test-fixtures/`) are skipped, along with `node_modules`, `vendor`, virtualenvs and build output, because fixtures are often intentionally vulnerable and are not shipped.
+
 ## Install
 
 **Claude Code (plugin marketplace)**
@@ -113,7 +115,9 @@ Expired ignores count again automatically, so nothing stays hidden forever.
 ## Development
 
 ```bash
-bash tests/run.sh -v      # 30 behaviour tests: scanner, ignores, lockfile drift, secrets, CVSS, hook install/uninstall, Husky
+bash tests/run.sh -v      # 30 behaviour tests (fast, no Claude needed)
+claude plugin eval . --scaffold --allow-tools Bash,Write,Edit --runs 1   # skill scenarios in evals/ (uses Claude)
+# : scanner, ignores, lockfile drift, secrets, CVSS, hook install/uninstall, Husky
 ```
 CI runs the tests on Linux (Python 3.8 and 3.13) and macOS, plus ShellCheck, Ruff, a Python 3.8 compatibility check, and `claude plugin validate`.
 

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Eval cases moved to `evals/` at the repo root (`claude plugin eval` does not read cases inside `skills/`).
+- Scanner skips test-fixture folders (`evals/`, `fixtures/`, `__fixtures__/`, `testdata/`, `test-fixtures/`), which are often intentionally vulnerable.
 - Test suite (`tests/run.sh`, 30 behaviour tests) and GitHub Actions CI: Linux + macOS, Python 3.8 and 3.13, ShellCheck (including the generated hook), Ruff, vermin (3.8 compatibility), `claude plugin validate`.
 
 ## 1.0.0 — 2026-11-08

@@ -8,7 +8,7 @@ set -u
 REPO=$(CDPATH='' cd -- "$(dirname -- "$0")/.." && pwd)
 SCAN="$REPO/skills/dep-sentinel/scripts/scan.sh"
 HOOK="$REPO/skills/dep-sentinel/scripts/install-hook.sh"
-FIXTURE="$REPO/skills/dep-sentinel/evals/check-reports-without-changing/files"
+FIXTURE="$REPO/evals/check-reports-without-changing/files"
 VERBOSE=${1:-}
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT

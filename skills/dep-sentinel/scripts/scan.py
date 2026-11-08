@@ -34,6 +34,8 @@ SKIP_DIRS = {
     "node_modules", ".git", "vendor", ".venv", "venv", "env", "__pycache__",
     "target", "dist", "build", ".next", ".nuxt", ".svelte-kit", "bower_components",
     ".tox", ".mypy_cache", ".gradle", "Pods", ".terraform",
+    # Test fixtures are often intentionally vulnerable; they are not shipped dependencies.
+    "evals", "fixtures", "__fixtures__", "testdata", "test-fixtures",
 }
 TOOL_TIMEOUT = int(os.environ.get("DEP_SENTINEL_TIMEOUT", "180"))
 
