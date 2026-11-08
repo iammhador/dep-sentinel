@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: flags-secret-and-lockfile-drift
+expected_outcome: |
+  Reports that a .env file is committed to git and a GitHub token appears in src/config.js (masked), and that package.json no longer matches package-lock.json (minimist 1.2.8 in package.json vs 1.2.5 in the lockfile), and advises not to push until fixed (rotate the token, remove .env from git, regenerate the lockfile).
+context:
+  scaffold_script: place-files.sh

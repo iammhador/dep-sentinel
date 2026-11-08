@@ -1,0 +1,11 @@
+{
+  "name": "dep-sentinel",
+  "description": "Find and fix known vulnerabilities in dependencies across ecosystems (npm, pnpm, yarn, bun, pip, Poetry, uv, Cargo, Go, Composer, Bundler, NuGet), catch out-of-sync lockfiles and leaked secrets, and block risky pushes with a fast pre-push check that hands off to Claude for fixes.",
+  "version": "1.0.0",
+  "author": {
+    "name": "iammhador"
+  },
+  "license": "MIT",
+  "keywords": ["security", "vulnerabilities", "dependencies", "audit", "cve", "supply-chain", "pre-push", "secrets", "lockfile"],
+  "skills": ["./skills/dep-sentinel"]
+}

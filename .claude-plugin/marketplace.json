@@ -1,0 +1,23 @@
+{
+  "name": "dep-sentinel",
+  "owner": {
+    "name": "iammhador"
+  },
+  "metadata": {
+    "description": "Dependency security for any project: multi-scanner vulnerability checks, lockfile sync, secret detection, safe upgrades and a pre-push gate.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "dep-sentinel",
+      "source": "./",
+      "description": "Find and fix known vulnerabilities in dependencies across ecosystems, catch out-of-sync lockfiles and leaked secrets, and block risky pushes with a fast pre-push check.",
+      "version": "1.0.0",
+      "author": {
+        "name": "iammhador"
+      },
+      "keywords": ["security", "vulnerabilities", "dependencies", "audit", "pre-push"],
+      "category": "security"
+    }
+  ]
+}

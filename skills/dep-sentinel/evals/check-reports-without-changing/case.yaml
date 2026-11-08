@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: check-reports-without-changing
+expected_outcome: |
+  Runs a dependency scan, reports the critical prototype-pollution advisory in minimist 1.2.5 with the fixed version (1.2.8), lists which scanners ran or were skipped, and changes no files.
+context:
+  scaffold_script: place-files.sh

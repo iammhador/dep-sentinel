@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: fix-and-verify
+expected_outcome: |
+  Upgrades minimist to a fixed version using npm so package-lock.json is updated, verifies the lockfile installs frozen (npm ci) and rescans clean, does not commit, and reports before/after with a suggested commit message.
+context:
+  scaffold_script: place-files.sh
