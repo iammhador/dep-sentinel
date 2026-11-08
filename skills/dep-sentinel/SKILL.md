@@ -43,7 +43,7 @@ If the user already has results from another tool (a Snyk, Dependabot or `npm au
    - Do not commit or push unless the user asks. Many teams have strict rules about who commits.
    - Find the package manager actually used in CI/deploy (lockfile, `packageManager` field, workflow files). Upgrade with that one: fixing `package-lock.json` when deploys run `bun install --frozen-lockfile` leaves the real lockfile stale.
 
-2. **Scan** with `scan.sh --json`, plus any project-configured tool (e.g. `snyk test` if `.snyk` exists and the CLI works).
+2. **Scan** with `scan.sh --json`. It needs no account or login. Only run account-based tools such as Snyk if they are **already authenticated non-interactively** (for example `SNYK_TOKEN` is set). Never run `snyk auth` or anything that opens a login or browser prompt. If the user pastes results from such a tool, merge them in.
 
 3. **Triage every finding** before changing anything. Read `references/triage.md` when a call is unclear. It covers:
    - runtime vs dev/build-only

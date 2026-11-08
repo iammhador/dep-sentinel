@@ -1,3 +1,15 @@
+<p align="center">
+  <img src="assets/banner.png" alt="dep-sentinel: find, fix and block vulnerable dependencies before you push" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/iammhador/dep-sentinel/actions/workflows/ci.yml"><img src="https://github.com/iammhador/dep-sentinel/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10b981" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/Claude%20Code-plugin-0f172a" alt="Claude Code plugin">
+  <img src="https://img.shields.io/badge/python-3.8%2B-334155" alt="Python 3.8+">
+  <img src="https://img.shields.io/badge/no%20account%20needed-✓-10b981" alt="No account needed">
+</p>
+
 # dep-sentinel
 
 **Dependency security for any project, with Claude doing the fixing.**
@@ -104,6 +116,12 @@ dep-sentinel honours `.snyk`, `.osv-scanner.toml`, and its own `.dep-sentinel-ig
 GHSA-xxxx-xxxx-xxxx  expires=2027-05-08  reason=no fixed version; input is admin-only and sanitized server-side
 ```
 Expired ignores count again automatically, so nothing stays hidden forever.
+
+## No accounts, no logins
+
+dep-sentinel does **not** use Snyk or any other service that needs an account. It runs the free, local auditors your package managers already ship (`npm audit`, `bun audit`, `pip-audit`, `cargo audit`, …), plus OSV-Scanner if you have it.
+
+If your project already has a `.snyk` policy file, dep-sentinel *reads* its ignores so your existing decisions are respected. It never calls Snyk, and never asks you to sign in.
 
 ## Privacy
 
