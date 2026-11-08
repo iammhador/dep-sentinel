@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Test suite (`tests/run.sh`, 30 behaviour tests) and GitHub Actions CI: Linux + macOS, Python 3.8 and 3.13, ShellCheck (including the generated hook), Ruff, vermin (3.8 compatibility), `claude plugin validate`.
+
 ## 1.0.0 — 2026-11-08
 
 First public release.

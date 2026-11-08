@@ -110,6 +110,13 @@ Expired ignores count again automatically, so nothing stays hidden forever.
 - Native auditors contact their own registries, exactly as when you run them yourself.
 - Secrets that are found are masked in all output.
 
+## Development
+
+```bash
+bash tests/run.sh -v      # 30 behaviour tests: scanner, ignores, lockfile drift, secrets, CVSS, hook install/uninstall, Husky
+```
+CI runs the tests on Linux (Python 3.8 and 3.13) and macOS, plus ShellCheck, Ruff, a Python 3.8 compatibility check, and `claude plugin validate`.
+
 ## License
 
 MIT

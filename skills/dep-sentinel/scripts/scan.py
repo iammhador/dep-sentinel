@@ -743,7 +743,7 @@ def load_ignores(root: Path):
     f = root / ".osv-scanner.toml"
     if f.exists():
         try:
-            import tomllib  # Python 3.11+
+            import tomllib  # novermin  (Python 3.11+; falls back below on older Pythons)
             data = tomllib.loads(f.read_text())
             for item in data.get("IgnoredVulns", []):
                 add(item.get("id"), item.get("ignoreUntil"), item.get("reason"), ".osv-scanner.toml")

@@ -1,0 +1,77 @@
+name: CI
+
+# Keeps dep-sentinel working for everyone who installs it: behaviour tests on
+# Linux and macOS (oldest and newest supported Python), lint, and the official
+# Claude Code plugin validation.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: tests (${{ matrix.os }}, Python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.8"     # oldest supported
+          - os: ubuntu-latest
+            python: "3.13"
+          - os: macos-latest
+            python: "3.13"    # macOS ships an old bash and BSD tools
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22    # npm audit is used by the tests
+      - name: Run test suite
+        run: bash tests/run.sh -v
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: ShellCheck (scripts, tests and the hook the installer generates)
+        run: |
+          tmp=$(mktemp -d) && git init -q "$tmp"
+          (cd "$tmp" && sh "$GITHUB_WORKSPACE/skills/dep-sentinel/scripts/install-hook.sh" >/dev/null)
+          shellcheck -s sh skills/dep-sentinel/scripts/scan.sh skills/dep-sentinel/scripts/install-hook.sh \
+            "$tmp/.git/dep-sentinel/pre-push" "$tmp/.git/hooks/pre-push"
+          shellcheck -s bash tests/run.sh
+      - name: Ruff
+        run: pipx run ruff check --select E,F,B,UP --ignore E501,UP006,UP035 skills/dep-sentinel/scripts/scan.py
+      - name: Python 3.8 syntax compatibility
+        run: pipx run vermin --target=3.8- --no-tips --violations skills/dep-sentinel/scripts/scan.py
+
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate plugin and marketplace manifests
+        run: |
+          npx -y @anthropic-ai/claude-code plugin validate .
+          npx -y @anthropic-ai/claude-code plugin validate .claude-plugin/marketplace.json
